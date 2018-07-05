@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using TradeLine.API.Authorization.JsonWebToken;
+using TradeLine.Core;
 using TradeLine.Core.Entities;
-using TradeLine.Entities;
+using TradeLine.Core.Repository;
 
 namespace TradeLine.API.Controllers
 {
@@ -12,6 +13,8 @@ namespace TradeLine.API.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
+        private static LoginRepository repository = RepositoryFactory.GetLoginRepository();
+
         private IConfiguration Configuration;
         JWTAuth jwt = null;
 
@@ -30,6 +33,10 @@ namespace TradeLine.API.Controllers
         [HttpPost, Route("signup")]
         public IActionResult SignUp([FromBody] User user)
         {
+            
+            if (ModelState.IsValid) 
+                repository.SignUp(user);
+
             return Ok(new { message = "Hello World" });
         }
 

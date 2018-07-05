@@ -39,7 +39,7 @@ namespace TradeLine.API.Authorization
             if (authorizeResult.Challenged)
             {
                 // Return custom 401 result
-                context.Result = new CustomUnauthorizedResult("You dont have permission to access this endpoint.");
+                context.Result = new CustomUnauthorizedResult("You dont have permission to access this endpoint.", 400);
             }
             else if (authorizeResult.Forbidden)
             {

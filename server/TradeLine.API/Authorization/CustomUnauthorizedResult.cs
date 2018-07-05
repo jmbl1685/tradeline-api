@@ -5,8 +5,8 @@ namespace TradeLine.API.Authorization
 {
     public class CustomUnauthorizedResult : JsonResult
     {
-        public CustomUnauthorizedResult(string message)
-            : base(new CustomError(message))
+        public CustomUnauthorizedResult(string message, int code)
+            : base(new CustomError(message,code))
         {
             StatusCode = StatusCodes.Status401Unauthorized;
         }
