@@ -1,0 +1,6 @@
+﻿DECLARE @DBName NVARCHAR(MAX) = 'TradeLineApp'
+DECLARE @SCName NVARCHAR(MAX) = 'TradeLine'
+
+EXECUTE ('USE ' + @DBName)
+EXECUTE ('CREATE SCHEMA ' + @SCName)
+
