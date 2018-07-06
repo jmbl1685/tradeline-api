@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using TradeLine.Core;
 using TradeLine.Core.Entities;
 
 namespace TradeLine.API.Authorization.JsonWebToken
@@ -22,16 +24,17 @@ namespace TradeLine.API.Authorization.JsonWebToken
 
         public JWTAuth() { }
 
-        public string GenerateToken(Login login)
+        public string GenerateToken(User user)
         {
-            var claimData = new[] { new Claim(ClaimTypes.Name, $"{login.Account}:{login.Password}") };
+            var user_to_json = JsonConvert.SerializeObject(user);
+            var claimData = new[] { new Claim(ClaimTypes.Name, user_to_json) };
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]));
             var signInCred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
             var token = new JwtSecurityToken(
                 issuer: "mysite.com",
                 audience: "mysite.com",
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(30),
                 claims: claimData,
                 signingCredentials: signInCred
             );

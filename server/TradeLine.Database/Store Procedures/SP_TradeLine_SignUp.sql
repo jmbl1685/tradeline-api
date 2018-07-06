@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE SignUp
+﻿CREATE PROCEDURE TradeLine.SignUp
 	@UserCode VARCHAR(50),
 	@Name VARCHAR(100),
 	@Lastname VARCHAR(100),
@@ -10,27 +10,36 @@
 	@Rol VARCHAR(50)
 AS
 BEGIN
-	INSERT INTO [TradeLine].[Users]
-	(
-		UserCode,
-		Name,
-		Lastname,
-		Identification,
-		Username,
-		Email,
-		Password,
-		ImageURL,
-		Rol
-	) VALUES
-	(
-		@UserCode,
-		@Name,
-		@Lastname,
-		@Identification,
-		@Username,
-		@Email,
-		@Password,
-		@ImageURL,
-		@Rol
-	)
+	BEGIN TRY	
+		INSERT INTO [TradeLine].[Users]
+			(
+				UserCode,
+				Name,
+				Lastname,
+				Identification,
+				Username,
+				Email,
+				Password,
+				ImageURL,
+				Rol
+			) VALUES
+			(
+				@UserCode,
+				@Name,
+				@Lastname,
+				@Identification,
+				@Username,
+				@Email,
+				@Password,
+				@ImageURL,
+				@Rol
+			)
+		IF EXISTS (SELECT UserCode FROM [TradeLine].[Users] WHERE UserCode = @UserCode)
+			SELECT 'Success' AS RESPONSE
+		ELSE
+			SELECT 'Error' AS RESPONSE
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_MESSAGE() AS RESPONSE
+	END CATCH
 END

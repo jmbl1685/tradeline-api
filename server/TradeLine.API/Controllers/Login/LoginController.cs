@@ -27,17 +27,27 @@ namespace TradeLine.API.Controllers
         [HttpPost, Route("signin")]
         public IActionResult SignIn([FromBody] Login login)
         {
-            return Ok(new { token = jwt.GenerateToken(login) });
+            User user = null;
+            object response = new { error = "User not found" };
+
+            if (ModelState.IsValid) { }
+                user = repository.SignIn(login);
+
+            if (user != null)
+                response = new { token = jwt.GenerateToken(user) };
+
+            return Ok(response);
         }
 
         [HttpPost, Route("signup")]
         public IActionResult SignUp([FromBody] User user)
         {
-            
-            if (ModelState.IsValid) 
-                repository.SignUp(user);
+            string Response = null;
 
-            return Ok(new { message = "Hello World" });
+            if (ModelState.IsValid)
+                Response = repository.SignUp(user);
+
+            return Ok(new { state = Response });
         }
 
     }

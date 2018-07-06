@@ -67,5 +67,6 @@
     <None Include="Schema_and_Database\Create_Schema.sql" />
     <None Include="Schema_and_Database\Create_Database.sql" />
     <None Include="Store Procedures\SP_TradeLine_SignUp.sql" />
+    <None Include="Store Procedures\SP_TradeLine_SignIn.sql" />
   </ItemGroup>
 </Project>

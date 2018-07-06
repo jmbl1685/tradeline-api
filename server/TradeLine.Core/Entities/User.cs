@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace TradeLine.Core
@@ -6,9 +7,13 @@ namespace TradeLine.Core
     public class User
     {
 
+        public User()
+        {
+            this.UserCode = ExtensionUtility.GenerateUUID();
+        }
+
         [JsonProperty("_id")]
-        // [Required]
-        public string UserCode { get; set; }
+        public string UserCode { get; private set; }
 
         [JsonProperty("name")]
         [Required]
@@ -31,8 +36,7 @@ namespace TradeLine.Core
         public string Password { get; set; }
 
         [JsonProperty("email")]
-        [Required, DataType(DataType.EmailAddress), EmailAddress]
-        // [Required, RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", ErrorMessage = "The Email field is not a valid e-mail address.")]
+        [Required, RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", ErrorMessage = "The Email field is not a valid e-mail address.")]
         public string Email { get; set; }
 
         [JsonProperty("imageurl")]

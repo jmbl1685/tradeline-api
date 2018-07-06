@@ -4,7 +4,7 @@ namespace TradeLine.Core
 {
     public interface ILoginRepository
     {
-        void SignIn(Login login);
-        void SignUp(User user);
+        User SignIn(Login login);
+        string SignUp(User user);
     }
 }

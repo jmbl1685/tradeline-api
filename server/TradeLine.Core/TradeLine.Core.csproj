@@ -5,14 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt-Core" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DBConnection\MongoDB\" />
-    <Folder Include="BlobStorage\" />
+    <Folder Include="AzureStorage\" />
     <Folder Include="Repository\Product\" />
     <Folder Include="Repository\User\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TradeLine.ExtensionUtility\TradeLine.ExtensionUtility.csproj" />
+    <ProjectReference Include="..\TradeLine.Service\TradeLine.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
